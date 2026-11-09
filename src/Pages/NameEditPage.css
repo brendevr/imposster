@@ -1,0 +1,58 @@
+.nameEditCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    justify-content: start;
+}
+
+.nameEditCont h2 {
+    margin: 0;
+}
+
+.nameEditList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90vw;
+    max-height: 75%;
+    overflow: scroll;
+}
+
+.nameEditRow {
+    display: flex;
+    gap: 10px;
+    min-height: 4rem;
+}
+
+.nameEditRow input {
+    flex: 1;
+    min-width: 0;
+    color: white;
+    background-color: rgb(107, 18, 175);
+    font-size: 1.5rem;
+    padding: 10px;
+    box-sizing: border-box;
+    border: rgb(151, 18, 204) solid 1px;
+    border-radius: 10px;
+}
+
+.nameRemoveButton {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1 / 1;
+    flex: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nameRemoveButton * {
+    height: 60%;
+    margin: 0;
+}
+
+.nameAddButton {
+    width: 100%;
+}

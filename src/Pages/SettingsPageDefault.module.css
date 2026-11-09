@@ -1,0 +1,21 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 80%;
+    overflow: scroll;
+    height: 85%;
+}
+
+.page > h2 {
+    align-self: center;
+}
+
+.sliderGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "b1 b2"
+    "b3 b3";
+}

@@ -1,0 +1,39 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.page > div:not(:global(.bottomBar)) {
+    width: 90%;
+    max-height: min-content;
+    background-color: rgb(41, 2, 70);
+    padding: 15px;
+    box-sizing: border-box;
+    border: rgb(151, 18, 204) solid 1px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.page h3 {
+    margin: 10px 0 0 0;
+}
+
+.imposterBox {
+    background-color: rgb(149, 32, 32);
+    border: rgb(255, 0, 0) solid 1px;
+    box-shadow: inset 0px 0px 10px 5px rgba(255, 0, 0, 0.5);
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.basicBox {
+    background-color: rgb(56, 32, 74);
+    border: rgb(151, 18, 204) solid 1px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(0,255,0);
+}

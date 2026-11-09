@@ -1,0 +1,40 @@
+.playerNameButton {
+    width: auto;
+    aspect-ratio: 4 / 3;
+    padding: 10px;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
+.playerNamesContainer {
+    width: 90vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+    gap: 20px;
+    height: fit-content;
+    overflow: scroll;
+    max-height: 75%;
+}
+
+button:disabled {
+    background-color: rgb(43, 1, 52);
+    box-shadow: none;
+}
+
+.growTransition-enter-active {
+    transition: transform 0.4s;
+    transform: scale(1);
+}
+.growTransition-enter {
+    transform: scale(0);
+}
+.growTransition-exit {
+    transform: scale(1);
+}
+.growTransition-exit-active {
+    transition: transform 0.4s;
+    transform: scale(0);
+}
+.growTransition-exit-to {
+    transform: scale(0);
+}
