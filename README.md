@@ -1,4 +1,5 @@
-<p align="center"><img src="public/icon.png" alt="project icon" width="400" float="center"/></p>
+<h1 align="center">imp{oss}ter</h1>
+<p align="center"><img src="public/icon.png" alt="project icon" width="400"/></p>
 <br>
 This is a SolidJS-built implementation of the popular party game "Imposter". I play this every day at school with my friends, but after a year and a half of playing, we have started to recognize the hint words and there are a lot of repetitions. You can buy more words, more categories, and more settings with a premium plan, but why do that when I can spend a ton of time building my own OSS version? I've never built anything myself with a reactive webapp language (react, solid, etc), so this was a huge learning opportunity for me. No, nothing was made with AI*. Every line, npm install, git commit, css style, TS function, and the logo art was written and created completely by me.
 <br>
