@@ -1,25 +1,24 @@
 import { createSignal, Show } from 'solid-js';
-
-import './App.css'
-import NameEditPage from './Pages/NameEditPage';
 import GamePage from './Pages/GamePage';
 import StartPage from './Pages/StartPage';
 import { Transition } from 'solid-transition-group';
 import VotePage from './Pages/VotePage';
 import ResultsPage from './Pages/ResultsPage';
-import ImposterSettingsPage from './Pages/ImposterSettingsPage';
+
+import './App.css'
+
 
 const [currentPage, setCurrentPage] = createSignal("");
 export {currentPage, setCurrentPage};
 
-function App() {
+export default function App() {
     return (
         <main class='App'>
             <h1>imp&#123oss&#125ter</h1>
             <div class='titleTopBar'></div>
 
             <div class="pageWrapper">
-                <Transition name="slide-fade">
+                <Transition name="swipe">
                     <Show when={currentPage()==""}>
                         <StartPage></StartPage>
                     </Show>
@@ -40,5 +39,3 @@ function App() {
         </main>
     );
 }
-
-export default App;

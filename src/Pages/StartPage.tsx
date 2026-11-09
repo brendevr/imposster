@@ -1,14 +1,17 @@
 import { setCurrentPage } from "../App";
 import { initGame } from "../Core/GameManager";
 import { playerNames } from "../Core/Storage";
+import { createSignal, Match, Show, Switch } from "solid-js";
+import ImposterSettingsPage from "./Settings/ImposterSettingsPage";
+import NameSettings from "./Settings/NameSettings";
+import { Transition } from "solid-transition-group";
 
 import editIcon from '../assets/edit.svg';
+
 import styles from './StartPage.module.css';
-import { createSignal, Match, Show, Switch } from "solid-js";
-import ImposterSettingsPage from "./ImposterSettingsPage";
-import NameEditPage from "./NameEditPage";
-import { Transition } from "solid-transition-group";
 import './GamePage.css';
+import '/src/Styles/Transitions.css';
+
 
 const [settingsPage, setSettingsPage] = createSignal("");
 
@@ -20,7 +23,7 @@ export default function StartPage() {
 
     return (
         <main class={styles.page}>
-            <Transition name="growTransition">
+            <Transition name="grow">
                 <Show when={settingsPage() == ""}>
                     <div class={styles.wrapper}>
                         <button onclick={()=>setSettingsPage("name")}>
@@ -48,7 +51,7 @@ export default function StartPage() {
                     <div class={styles.wrapper}>
                         <Switch>
                             <Match when={settingsPage() == "name"}>
-                                <NameEditPage></NameEditPage>
+                                <NameSettings></NameSettings>
                             </Match>
                             <Match when={settingsPage() == "imposter"}>
                                 <ImposterSettingsPage></ImposterSettingsPage>

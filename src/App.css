@@ -95,21 +95,3 @@ input {
     margin-top: -10px;
     color: rgb(56, 179, 255);
 }
-
-.slide-fade-enter-active {
-    transition: transform 0.4s;
-    transform: translateX(0);
-}
-.slide-fade-enter {
-  transform: translateX(100%);
-}
-.slide-fade-exit {
-    transform: translateX(0);
-}
-.slide-fade-exit-active {
-    transition: transform 0.4s;
-    transform: translateX(0);
-}
-.slide-fade-exit-to {
-    transform: translateX(-100%);
-}

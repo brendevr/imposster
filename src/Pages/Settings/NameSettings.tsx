@@ -1,10 +1,12 @@
-import { playerNames, setPlayerNames } from '../Core/Storage';
-import './NameEditPage.css'
-import trashbinIcon from '../assets/trashbin.svg'
+import { playerNames, setPlayerNames } from '../../Core/Storage';
 import { Index } from 'solid-js';
-import { setCurrentPage } from '../App';
 
-function NameEditPage() {
+import trashbinIcon from '/src/assets/trashbin.svg'
+
+import './NameSettings.css'
+
+
+export default function NameSettings() {
     function setPlayerName(index: number, name: string) {
         const currentPlayerNames = [...playerNames()];
         currentPlayerNames[index] = name;
@@ -44,5 +46,3 @@ function NameEditPage() {
         </main>
     );
 }
-
-export default NameEditPage;

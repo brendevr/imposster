@@ -1,7 +1,9 @@
 import { setCurrentPage } from '../App';
 import { playerNames } from '../Core/Storage';
 import { startingPlayerIndex } from '../Core/GameManager';
+
 import styles from './VotePage.module.css'
+
 
 export default function VotePage() {
     return (

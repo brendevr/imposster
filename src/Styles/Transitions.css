@@ -1,0 +1,39 @@
+/* Swipe Transition */
+
+.swipe-enter-active {
+    transition: transform 0.4s;
+    transform: translateX(0);
+}
+.swipe-enter {
+  transform: translateX(100%);
+}
+.swipe-exit {
+    transform: translateX(0);
+}
+.swipe-exit-active {
+    transition: transform 0.4s;
+    transform: translateX(0);
+}
+.swipe-exit-to {
+    transform: translateX(-100%);
+}
+
+/* Grow Transition */
+
+.grow-enter-active {
+    transition: transform 0.4s;
+    transform: scale(1);
+}
+.grow-enter {
+    transform: scale(0);
+}
+.grow-exit {
+    transform: scale(1);
+}
+.grow-exit-active {
+    transition: transform 0.4s;
+    transform: scale(0);
+}
+.grow-exit-to {
+    transform: scale(0);
+}

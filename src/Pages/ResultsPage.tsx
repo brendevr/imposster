@@ -1,8 +1,10 @@
 import { Index, Show } from 'solid-js';
-import styles from './ResultsPage.module.css'
 import { playerNames } from '../Core/Storage';
 import { setCurrentPage } from '../App';
 import { currentImposters, currentWord } from '../Core/GameManager';
+
+import styles from './ResultsPage.module.css'
+
 
 export default function ResultsPage() {
     return (

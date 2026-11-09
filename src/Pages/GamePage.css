@@ -20,21 +20,3 @@ button:disabled {
     background-color: rgb(43, 1, 52);
     box-shadow: none;
 }
-
-.growTransition-enter-active {
-    transition: transform 0.4s;
-    transform: scale(1);
-}
-.growTransition-enter {
-    transform: scale(0);
-}
-.growTransition-exit {
-    transform: scale(1);
-}
-.growTransition-exit-active {
-    transition: transform 0.4s;
-    transform: scale(0);
-}
-.growTransition-exit-to {
-    transform: scale(0);
-}

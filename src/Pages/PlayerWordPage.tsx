@@ -1,11 +1,12 @@
-import { Component, onMount } from "solid-js";
+import { onMount } from "solid-js";
 import { exitPlayerWordScreen, PlayerInfo, selectedPlayerInfo, setViewedPlayers, viewedPlayers } from "./GamePage";
-
-import './PlayerWordPage.css'
 import { delay } from "../MyMath";
 import { currentWord } from "../Core/GameManager";
 
-function PlayerWordPage() {
+import './PlayerWordPage.css'
+
+
+export default function PlayerWordPage() {
     const playerInfo: PlayerInfo = selectedPlayerInfo();
 
     let roleHider!: HTMLButtonElement;
@@ -155,5 +156,3 @@ function PlayerWordPage() {
         </div>
     )
 }
-
-export default PlayerWordPage;

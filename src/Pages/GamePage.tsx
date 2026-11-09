@@ -1,11 +1,14 @@
-import { For, onMount, onCleanup, createSignal, Show } from "solid-js";
+import { For, createSignal, Show } from "solid-js";
 import { playerNames } from "../Core/Storage";
-
-import './GamePage.css'
 import { currentImposters } from "../Core/GameManager";
 import PlayerWordPage from "./PlayerWordPage";
 import { setCurrentPage } from "../App";
 import { Transition } from "solid-transition-group";
+
+import '/src/Styles/Transitions.css';
+import './GamePage.css'
+import '/src/Styles/Transitions.css';
+
 
 export interface PlayerInfo {
     index: number,
@@ -30,7 +33,7 @@ export function exitPlayerWordScreen() {
 export {viewedPlayers, setViewedPlayers}
 export {selectedPlayerInfo}
 
-function GamePage() {
+export default function GamePage() {
     function playerButtonPressed(index: number) {
         const playerInfo: PlayerInfo = {
             index: index,
@@ -64,7 +67,7 @@ function GamePage() {
                     Return
                 </button>
             </div>
-            <Transition name="growTransition">
+            <Transition name="grow">
                 <Show when={onWordScreen()}>
                     <PlayerWordPage/>
                 </Show>
@@ -72,5 +75,3 @@ function GamePage() {
         </main>
     )
 }
-
-export default GamePage;

@@ -1,8 +1,9 @@
 import { Index } from "solid-js";
-import { imposterChances, playerNames, setImposterChances } from "../Core/Storage";
+import { imposterChances, setImposterChances } from "../../Core/Storage";
 
-import '../Styles/Slider.css'
 import styles from './SettingsPageDefault.module.css'
+import '/src/Styles/Slider.css'
+
 
 export default function ImposterSettingsPage() {
     function setImposterChance(index: number, chance: number) {
