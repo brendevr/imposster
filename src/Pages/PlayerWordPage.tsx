@@ -23,10 +23,10 @@ export default function PlayerWordPage() {
         glowDots.forEach(dotInfo => {
             let outwardsX = (dotInfo[1][0] - 50) / 50;
             let outwardsY = (dotInfo[1][1] - 50) / 50;
-            outwardsX *= 10;
-            outwardsY *= 10;
-            outwardsX += 5 * Math.sign(outwardsX);
-            outwardsY += 5 * Math.sign(outwardsY);
+            outwardsX *= 1;
+            outwardsY *= 1;
+            outwardsX += 1 * Math.sign(outwardsX);
+            outwardsY += 1 * Math.sign(outwardsY);
             dotInfo[2] = [outwardsX, outwardsY];
         });
         await delay(250);
@@ -53,7 +53,7 @@ export default function PlayerWordPage() {
             ];
         }
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 65; i++) {
             const randX = Math.random() * 100;
             const randY = Math.random() * 100;
             
@@ -82,7 +82,13 @@ export default function PlayerWordPage() {
             glowDots.push([dot, [randX, randY], motionDir]);
         }
 
+        let dotUpdateRate: number = 33;
+
         function updateDots(initialize: boolean = false) {
+            const scale: number = 1 / (roleHider.getBoundingClientRect().width / roleHider.offsetWidth);
+            const isScaled: boolean = Math.abs(scale - 1.0) > 0.1;
+            if (isScaled) { initialize = true; }
+
             const lowerLim: number = -15;
             const upperLim: number = 115;
             glowDots.forEach(dotInfo => {
@@ -90,8 +96,8 @@ export default function PlayerWordPage() {
                 const currentPos: [number, number] = dotInfo[1];
                 const motionDir: [number, number] = [...dotInfo[2]];
                 if (initialize) {motionDir[0] = 0; motionDir[1] = 0;}
-                let newX = currentPos[0] + (motionDir[0] * 5);
-                let newY = currentPos[1] + (motionDir[1] * 5);
+                let newX = currentPos[0] + (motionDir[0] * 20);
+                let newY = currentPos[1] + (motionDir[1] * 20);
 
                 let jumped: boolean = false || initialize
                 if (newX > upperLim && !roleRevealed) {
@@ -122,11 +128,13 @@ export default function PlayerWordPage() {
                 
                 dotInfo[1] = [newX, newY];
             });
+
+            setTimeout(updateDots, isScaled ? 33 : 200);
         }
 
         updateDots(true);
         updateDots();
-        setInterval(updateDots, 50);
+        setTimeout(updateDots, dotUpdateRate);
     })
     
     return (
