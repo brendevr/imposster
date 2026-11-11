@@ -1,7 +1,6 @@
 import { Index, Show } from 'solid-js';
-import { playerNames } from '../Core/Storage';
 import { setCurrentPage } from '../App';
-import { currentImposters, currentWord } from '../Core/GameManager';
+import { currentWord, players } from '../Core/GameManager';
 
 import styles from './ResultsPage.module.css'
 
@@ -12,12 +11,14 @@ export default function ResultsPage() {
             <h2>Results</h2>
             <div>
                 <h3>Imposter(s):</h3>
-                <Index each={currentImposters()}>
+                <Index each={players().filter((player) => {
+                    return player.imposter;
+                })}>
                     {(item) => (
-                        <div class={styles.imposterBox}>{playerNames()[item()]}</div>
+                        <div class={styles.imposterBox}>{item().name}</div>
                     )}
                 </Index>
-                <Show when={currentImposters()?.length <= 0}>
+                <Show when={players()?.length <= 0}>
                     <div class={styles.basicBox}>Nobody was imposter.</div>
                 </Show>
             </div>

@@ -1,13 +1,12 @@
 import { onMount } from "solid-js";
-import { exitPlayerWordScreen, PlayerInfo, selectedPlayerInfo, setViewedPlayers, viewedPlayers } from "./GamePage";
-import { delay } from "../MyMath";
-import { currentWord } from "../Core/GameManager";
+import { exitPlayerWordScreen, selectedPlayer, setViewedPlayers, viewedPlayers } from "./GamePage";
+import { currentWord, Player, players } from "../Core/GameManager";
 
 import './PlayerWordPage.css'
 
 
 export default function PlayerWordPage() {
-    const playerInfo: PlayerInfo = selectedPlayerInfo();
+    const player: Player = players()[selectedPlayer()];
 
     let roleHider!: HTMLButtonElement;
     let roleLabel!: HTMLSpanElement;
@@ -18,7 +17,7 @@ export default function PlayerWordPage() {
     let roleRevealed: boolean = false
 
     async function revealRole() {
-        setViewedPlayers([...viewedPlayers(), playerInfo.index]);
+        setViewedPlayers([...viewedPlayers(), selectedPlayer()]);
         roleRevealed = true;
         glowDots.forEach(dotInfo => {
             let outwardsX = (dotInfo[1][0] - 50) / 50;
@@ -29,10 +28,8 @@ export default function PlayerWordPage() {
             outwardsY += 1 * Math.sign(outwardsY);
             dotInfo[2] = [outwardsX, outwardsY];
         });
-        await delay(250);
-        roleLabel.style.opacity = "1";
-        await delay(500);
-        wordBox.style.opacity = "1";
+        setTimeout(() => roleLabel.style.opacity = "1", 100);
+        setTimeout(() => wordBox.style.opacity = "1", 400);
     }
 
     onMount(function() {
@@ -141,17 +138,17 @@ export default function PlayerWordPage() {
         <div class="transWrapper">
         <main class="playerWordPage">
             <div class="playerName">
-                <span>{playerInfo.playerName}</span>
+                <span>{player.name}</span>
             </div>
             <button onclick={revealRole} class="roleBox" ref={roleHider}>
-                <span ref={roleLabel}>You are <span style={"color:" + (playerInfo.imposter ? "rgb(255,0,0)" : "")}>{playerInfo.imposter ? "Imposter." : "Crewmate."}</span></span>
+                <span ref={roleLabel}>You are <span style={"color:" + (player.imposter ? "rgb(255,0,0)" : "")}>{player.imposter ? "Imposter." : "Crewmate."}</span></span>
             </button>
             <span class="tapInfo">Tap the box to reveal role</span>
             <div class="box wordBox" ref={wordBox}>
                 <h4>The category is:</h4>
                 <span class="categoryLabel roleLabel">{currentWord().category}</span>
-                <h4>The {playerInfo.imposter ? "hint " : ""}word is:</h4>
-                <span class="roleLabel" style={"color:" + (playerInfo.imposter ? "rgb(255,0,0)" : "")}>{!playerInfo.imposter ? currentWord().word : currentWord().hintWord}</span>
+                <h4>The {player.imposter ? "hint " : ""}word is:</h4>
+                <span class="roleLabel" style={"color:" + (player.imposter ? "rgb(255,0,0)" : "")}>{!player.imposter ? currentWord().word : currentWord().hintWord}</span>
             </div>
             <div class="bottomBar">
                 <button

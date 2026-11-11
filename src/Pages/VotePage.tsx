@@ -1,6 +1,5 @@
 import { setCurrentPage } from '../App';
-import { playerNames } from '../Core/Storage';
-import { startingPlayerIndex } from '../Core/GameManager';
+import { players, startingPlayerIndex } from '../Core/GameManager';
 
 import styles from './VotePage.module.css'
 
@@ -12,7 +11,7 @@ export default function VotePage() {
             <h3 class={styles.header}>How to Vote</h3>
             <div>
                 <h3>Starting Player</h3>
-                <h4><span style={"color:rgb(0, 255, 0)"}>{playerNames()[startingPlayerIndex()]}</span> starts the round</h4>
+                <h4><span style={"color:rgb(0, 255, 0)"}>{players()[startingPlayerIndex()].name}</span> starts the round</h4>
             </div>
             <div>
                 <h3>Take Turns</h3>

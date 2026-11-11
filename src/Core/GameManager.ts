@@ -1,49 +1,100 @@
-import { createSignal } from "solid-js";
-import { imposterChances, playerNames } from "./Storage";
+import { createEffect, createSignal, on } from "solid-js";
+import { createStoredSignal } from "./Storage";
 import { Word, WordBank } from "./WordBank";
 import { setViewedPlayers } from "../Pages/GamePage";
+import { weightedRandom } from "./MyMath";
 
+
+export interface Player {
+    name: string,
+    imposter: boolean,
+    disabled: boolean,
+}
+
+const playerNamesKey = "playerNames";
+
+const [players, setPlayers] = createSignal<Player[]>([]);
+const [imposterChances, setImposterChances] = createStoredSignal<number[]>("imposterChances", []);
 const [startingPlayerIndex, setStartingPlayerIndex] = createSignal(0);
 const [currentWord, setCurrentWord] = createSignal<Word>(WordBank[0]);
-const [currentImposters, setCurrentImposters] = createSignal<number[]>([]);
 
-function weightedRandom(items: number[], weights: number[]): number {
-    for (let i=1;i<items.length;i++) {;
-        weights[i] += weights[i-1];
-    }
+export {players, setPlayers};
+export {imposterChances, setImposterChances};
 
-    const rand = Math.random() * weights[weights.length - 1];
-    
-    let i: number;
-    for (i=0;i<items.length;i++) {
-        if (rand < weights[i]) {
-            break;
-        }
-    }
-    return i;
-}
-
-export function initGame() {
-    setViewedPlayers([]);
-    
-    const imposters: number[] = []
-    const imposterBag: number[] = []
-    const imposterCountBag: number[] = []
-    for (let i=0;i<playerNames().length;i++) { imposterBag.push(i) }
-    for (let i=0;i<=playerNames().length;i++) { imposterCountBag.push(i) }
-    const numImposters = imposterCountBag[weightedRandom(imposterCountBag, [...imposterChances()])];
-    for (let i=0; i<numImposters; i++) {
-        imposters.push(
-            imposterBag.splice(Math.floor(Math.random() * imposterBag.length), 1)[0]
-        );
-    }
-    console.log(imposters);
-    setCurrentImposters(imposters);
-
-    setCurrentWord(WordBank[Math.floor(Math.random() * WordBank.length)]);
-    setStartingPlayerIndex(Math.floor(Math.random() * playerNames().length));
-}
-
-export {currentImposters};
 export {currentWord};
 export {startingPlayerIndex};
+
+
+loadPlayerNames();
+createEffect(on(players, reactToPlayerListChange));
+
+export function initGame() {
+    setPlayers(players().map((player): Player => ({...player, imposter: false, disabled: player.disabled})));
+    setViewedPlayers([]);
+    
+    const imposterBag: number[] = []
+    const imposterCountBag: number[] = []
+    for (let i=0; i<players().length ;i++) { imposterBag.push(i) }
+    for (let i=0; i<=players().length; i++) { imposterCountBag.push(i) }
+    const numImposters = imposterCountBag[weightedRandom(imposterCountBag, [...imposterChances()])];
+    for (let i=0; i<numImposters; i++) {
+        const imposter = imposterBag.splice(Math.floor(Math.random() * imposterBag.length), 1)[0];
+        setPlayers(players().map((player, i): Player => (i==imposter ? {...player, imposter: true} : player)))
+    }
+
+    setCurrentWord(WordBank[Math.floor(Math.random() * WordBank.length)]);
+    setStartingPlayerIndex(Math.floor(Math.random() * players().length));
+}
+
+export function reactToPlayerListChange(playerList: Player[], oldPlayerList?: Player[]) {
+    oldPlayerList ??= [];
+    const lengthsMatch: boolean = playerList.length == oldPlayerList.length;
+    if (!lengthsMatch) {
+        syncImposterChances(playerList.length);
+    }
+    let namesMatch = true;
+    if (lengthsMatch) {
+        for (let i=0; i<playerList.length; i++) {
+            const p = playerList[i];
+            const pp = oldPlayerList[i]; // hehe pp
+            if (p.name != pp.name) {
+                namesMatch = false;
+            }
+        }
+    }
+    if (!lengthsMatch || !namesMatch) {
+        savePlayerNames();
+    }
+}
+
+function savePlayerNames() {
+    localStorage.setItem(
+        playerNamesKey,
+        JSON.stringify(players().map((player) => player.name))
+    );
+}
+
+export function loadPlayerNames() {
+    const names: string[] = JSON.parse(localStorage.getItem(playerNamesKey) ?? "[]");
+    const newPlayerList: Player[] = [];
+    names.forEach(name => {
+        newPlayerList.push({name: name, imposter: false, disabled: false});
+    });
+    setPlayers(newPlayerList);
+}
+
+function syncImposterChances(playerCount: number) {
+    const chances: number[] = [...imposterChances()];
+    if (chances.length > (playerCount + 1)) {
+        chances.splice(playerCount + 1)
+    }
+    for (let i=0; i<=playerCount; i++) {
+        if (chances.length <= i) {
+            chances.push(-1);
+        }
+        if (chances[i] <= -1) {
+            chances[i] = 100;
+        }
+        setImposterChances(chances);
+    }
+}

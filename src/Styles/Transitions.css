@@ -21,7 +21,7 @@
 /* Grow Transition */
 
 .grow-enter-active {
-    transition: transform 0.4s;
+    transition: transform 0.3s;
     transform: scale(1);
 }
 .grow-enter {
@@ -31,7 +31,7 @@
     transform: scale(1);
 }
 .grow-exit-active {
-    transition: transform 0.4s;
+    transition: transform 0.3s;
     transform: scale(0);
 }
 .grow-exit-to {

@@ -1,6 +1,5 @@
 import { setCurrentPage } from "../App";
-import { initGame } from "../Core/GameManager";
-import { playerNames } from "../Core/Storage";
+import { initGame, players } from "../Core/GameManager";
 import { createSignal, Match, Show, Switch } from "solid-js";
 import ImposterSettingsPage from "./Settings/ImposterSettingsPage";
 import NameSettings from "./Settings/NameSettings";
@@ -27,7 +26,7 @@ export default function StartPage() {
                 <Show when={settingsPage() == ""}>
                     <div class={styles.wrapper}>
                         <button onclick={()=>setSettingsPage("name")}>
-                            <span>Players: {playerNames().length} <img class='editButton' src={editIcon}/></span>
+                            <span>Players: {players().length} <img class='editButton' src={editIcon}/></span>
                         </button>
                         <button onclick={()=>setSettingsPage("imposter")}>
                             <span>Imposter Settings <img class='editButton' src={editIcon}/></span>

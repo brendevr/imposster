@@ -1,6 +1,5 @@
-import { For, createSignal, Show } from "solid-js";
-import { playerNames } from "../Core/Storage";
-import { currentImposters } from "../Core/GameManager";
+import { createSignal, Show, Index } from "solid-js";
+import { players } from "../Core/GameManager";
 import PlayerWordPage from "./PlayerWordPage";
 import { setCurrentPage } from "../App";
 import { Transition } from "solid-transition-group";
@@ -9,55 +8,40 @@ import '/src/Styles/Transitions.css';
 import './GamePage.css'
 import '/src/Styles/Transitions.css';
 
-
-export interface PlayerInfo {
-    index: number,
-    playerName: string,
-    imposter: boolean
-}
-const [selectedPlayerInfo, setSelectedPlayerInfo] = createSignal<PlayerInfo>({
-    index: 0,
-    playerName: "Player",
-    imposter: false,
-});
+const [selectedPlayer, setSelectedPlayer] = createSignal(-1);
 const [viewedPlayers, setViewedPlayers] = createSignal<number[]>([]);
 const [onWordScreen, setOnWordScreen] = createSignal(false);
 
 export function exitPlayerWordScreen() {
-    if (viewedPlayers().length >= playerNames().length) {
+    if (viewedPlayers().length >= players().length) {
         setCurrentPage("roundPage");
     }
     setOnWordScreen(false);
 }
 
 export {viewedPlayers, setViewedPlayers}
-export {selectedPlayerInfo}
+export {selectedPlayer}
 
 export default function GamePage() {
     function playerButtonPressed(index: number) {
-        const playerInfo: PlayerInfo = {
-            index: index,
-            playerName: playerNames()[index],
-            imposter: currentImposters()?.indexOf(index) != -1,
-        };
-        setSelectedPlayerInfo(playerInfo);
+        setSelectedPlayer(index);
         setOnWordScreen(true);
     }
 
     return (
         <main>
             <div class='playerNamesContainer'>
-                <For each={playerNames()}>
+                <Index each={players()}>
                     {(item, index) =>
                         <button
                             class='playerNameButton'
-                            onclick={() => {playerButtonPressed(index())}}
-                            disabled={viewedPlayers().indexOf(index()) != -1}
+                            onclick={() => {playerButtonPressed(index)}}
+                            disabled={viewedPlayers().indexOf(index) != -1}
                         >
-                            <span>{item}</span>
+                            <span>{item().name}</span>
                         </button>
                     }
-                </For>
+                </Index>
             </div>
             <div class="bottomBar">
                 <button
