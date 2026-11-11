@@ -7,8 +7,14 @@
     height: 85%;
 }
 
+.centerFull {
+    width: 100%;
+    align-items: center;
+}
+
 .page > h2 {
     align-self: center;
+    text-align: center;
 }
 
 .sliderGrid {

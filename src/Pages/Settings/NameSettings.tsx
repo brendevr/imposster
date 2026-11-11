@@ -8,7 +8,7 @@ import { Player, players, setPlayers } from '../../Core/GameManager';
 
 export default function NameSettings() {
     function setPlayerName(index: number, name: string) {
-        setPlayers(players().map((player, i): Player => (i==index ? {...player, name} : player)))
+        setPlayers(players().map((player, i): Player => (i==index ? {...player, name} : player)));
     }
 
     function addPlayer() {

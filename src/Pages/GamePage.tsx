@@ -7,6 +7,7 @@ import { Transition } from "solid-transition-group";
 import '/src/Styles/Transitions.css';
 import './GamePage.css'
 import '/src/Styles/Transitions.css';
+import '/src/Styles/PlayerList.css';
 
 const [selectedPlayer, setSelectedPlayer] = createSignal(-1);
 const [viewedPlayers, setViewedPlayers] = createSignal<number[]>([]);
@@ -36,7 +37,7 @@ export default function GamePage() {
                         <button
                             class='playerNameButton'
                             onclick={() => {playerButtonPressed(index)}}
-                            disabled={viewedPlayers().indexOf(index) != -1}
+                            disabled={(viewedPlayers().indexOf(index) != -1) || (item().disabled)}
                         >
                             <span>{item().name}</span>
                         </button>

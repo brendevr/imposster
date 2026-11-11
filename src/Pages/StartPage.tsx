@@ -10,6 +10,7 @@ import editIcon from '../assets/edit.svg';
 import styles from './StartPage.module.css';
 import './GamePage.css';
 import '/src/Styles/Transitions.css';
+import DisablePlayerPage from "./Settings/DisablePlayerPage";
 
 
 const [settingsPage, setSettingsPage] = createSignal("");
@@ -28,14 +29,18 @@ export default function StartPage() {
                         <button onclick={()=>setSettingsPage("name")}>
                             <span>Players: {players().length} <img class='editButton' src={editIcon}/></span>
                         </button>
+                        <button onclick={()=>setSettingsPage("general")}>
+                            <span>General Settings <img class='editButton' src={editIcon}/></span>
+                        </button>
                         <button onclick={()=>setSettingsPage("imposter")}>
                             <span>Imposter Settings <img class='editButton' src={editIcon}/></span>
                         </button>
                         <button onclick={()=>setSettingsPage("crewmate")}>
                             <span>Crewmate Settings <img class='editButton' src={editIcon}/></span>
                         </button>
-                        <button onclick={()=>setSettingsPage("general")}>
-                            <span>General Settings <img class='editButton' src={editIcon}/></span>
+                        <div class="seperator"></div>
+                        <button onclick={()=>setSettingsPage("disablePlayer")}>
+                            <span>Toggle Players Disabled</span>
                         </button>
                         <div class="bottomBar">
                             <button
@@ -54,6 +59,9 @@ export default function StartPage() {
                             </Match>
                             <Match when={settingsPage() == "imposter"}>
                                 <ImposterSettingsPage></ImposterSettingsPage>
+                            </Match>
+                            <Match when={settingsPage() == "disablePlayer"}>
+                                <DisablePlayerPage></DisablePlayerPage>
                             </Match>
                         </Switch>
                         <div class="bottomBar">
