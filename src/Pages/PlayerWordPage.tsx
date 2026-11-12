@@ -33,6 +33,8 @@ export default function PlayerWordPage() {
     }
 
     onMount(function() {
+        roleHider.scrollIntoView();
+
         const dotPalette: string[] = [
             "253, 129, 253",
             "72, 182, 255",
