@@ -1,4 +1,4 @@
-import { createSignal, Show, Index } from "solid-js";
+import { createSignal, Show, Index, onMount } from "solid-js";
 import { players } from "../Core/GameManager";
 import PlayerWordPage from "./PlayerWordPage";
 import { setCurrentPage } from "../App";
@@ -14,6 +14,7 @@ const [viewedPlayers, setViewedPlayers] = createSignal<number[]>([]);
 const [onWordScreen, setOnWordScreen] = createSignal(false);
 
 export function exitPlayerWordScreen() {
+    console.log(viewedPlayers());
     if (viewedPlayers().length >= players().length) {
         setCurrentPage("roundPage");
     }
@@ -24,6 +25,16 @@ export {viewedPlayers, setViewedPlayers}
 export {selectedPlayer}
 
 export default function GamePage() {
+    onMount(function() {
+        setViewedPlayers([]);
+        for (let i=0; i<players().length; i++) {
+            const disabled = players()[i].disabled;
+            if (disabled) {
+                setViewedPlayers([...viewedPlayers(), i])
+            }
+        }
+    });
+
     function playerButtonPressed(index: number) {
         setSelectedPlayer(index);
         setOnWordScreen(true);
@@ -37,7 +48,7 @@ export default function GamePage() {
                         <button
                             class='playerNameButton'
                             onclick={() => {playerButtonPressed(index)}}
-                            disabled={(viewedPlayers().indexOf(index) != -1) || (item().disabled)}
+                            disabled={viewedPlayers().indexOf(index) != -1 || item().disabled}
                         >
                             <span>{item().name}</span>
                         </button>

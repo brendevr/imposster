@@ -30,7 +30,6 @@ createEffect(on(players, reactToPlayerListChange));
 
 export function initGame() {
     setPlayers(players().map((player): Player => ({...player, imposter: false, disabled: player.disabled})));
-    setViewedPlayers([]);
     
     const imposterBag: number[] = []
     const imposterCountBag: number[] = []
